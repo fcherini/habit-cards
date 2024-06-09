@@ -1,12 +1,14 @@
-const express = require("express");
-const mongoose = require("mongoose");
+import express, { Application } from "express";
+import mongoose from "mongoose";
 const cors = require("cors");
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
+const db = require("./config/db");
+import routes from "./routes";
 
 // Load environment variables
 dotenv.config();
 
-const app = express();
+const app: Application = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
@@ -14,11 +16,12 @@ app.use(cors());
 app.use(express.json());
 
 // Database configuration
-const db = require("./config/db");
 
 // Routes
-const routes = require("./routes");
 app.use("/api", routes);
+
+// Connect to db
+db.connect();
 
 // Start the server
 app.listen(PORT, () => {
