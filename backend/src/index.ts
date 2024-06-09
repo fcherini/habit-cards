@@ -1,9 +1,10 @@
 import express, { Application } from "express";
-import mongoose from "mongoose";
-const cors = require("cors");
+import cors from "cors";
 import dotenv from "dotenv";
-const db = require("./config/db");
+import db from "./config/db";
+// const db = require("./config/db");
 import routes from "./routes";
+import { authMiddleware } from "./middleware/authMiddleware";
 
 // Load environment variables
 dotenv.config();
@@ -14,6 +15,7 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+// app.use(authMiddleware);
 
 // Database configuration
 
@@ -21,7 +23,7 @@ app.use(express.json());
 app.use("/api", routes);
 
 // Connect to db
-db.connect();
+db();
 
 // Start the server
 app.listen(PORT, () => {

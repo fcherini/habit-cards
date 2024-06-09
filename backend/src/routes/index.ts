@@ -1,8 +1,10 @@
 import { Router } from "express";
-import habitRoutes from "./habitRoutes";
+import goalRoutes from "./goalRoutes";
+import userRoutes from "./userRoutes";
 
 const router: Router = Router();
 
-router.use("/habits", habitRoutes);
+router.use("/goals", goalRoutes);
+router.use("/users", userRoutes);
 
 export default router;
