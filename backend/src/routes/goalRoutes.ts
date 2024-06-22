@@ -17,7 +17,11 @@ import { GoalStatusEnum } from "../models/Goal";
 
 const router: Router = Router();
 
-const createGoalChains = [checkString("title"), checkInt("rank")];
+const createGoalChains = [
+  checkString("title"),
+  checkInt("rank"),
+  checkInt("userId"),
+];
 const updateGoalChains = [
   checkId(),
   checkEnum("status", GoalStatusEnum, true),

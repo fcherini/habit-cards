@@ -5,12 +5,12 @@ export const createGoal = async (
   req: Request<{}, {}, IGoal>,
   res: Response
 ): Promise<void> => {
-  const { title, rank } = req.body;
+  const { title, rank, userId } = req.body;
 
   try {
-    const newHabit: IGoal = new Goal({ title, rank });
-    await newHabit.save();
-    res.status(201).json(newHabit);
+    const newGoal: IGoal = new Goal({ title, rank, userId });
+    await newGoal.save();
+    res.status(201).json(newGoal);
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
@@ -25,7 +25,11 @@ export const listGoals = async (
     if (!goals.length) {
       res.status(404).json({ error: "Goal not found" });
     } else {
-      res.status(200).json(goals);
+      const response = {
+        data: goals,
+        meta: {},
+      };
+      res.status(200).json(response);
     }
   } catch (error) {
     res.status(500).json({ error: "Server error" });

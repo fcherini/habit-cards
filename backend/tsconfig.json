@@ -110,7 +110,8 @@
   },
   "include": [
     "src/**/*", // Specify which files to include
-    "src/index.ts"
+    "src/index.ts",
+    "../frontend/models/JsonApiResponse.ts"
   ],
   "exclude": [
     "node_modules", // Exclude node_modules folder

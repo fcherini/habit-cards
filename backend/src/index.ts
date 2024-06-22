@@ -2,9 +2,8 @@ import express, { Application } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import db from "./config/db";
-// const db = require("./config/db");
 import routes from "./routes";
-import { authMiddleware } from "./middleware/authMiddleware";
+import morgan from "morgan";
 
 // Load environment variables
 dotenv.config();
@@ -12,12 +11,15 @@ dotenv.config();
 const app: Application = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-// app.use(authMiddleware);
+const corsOptions = {
+  origin: "http://localhost:8081", // Frontend URL
+  optionsSuccessStatus: 200,
+};
 
-// Database configuration
+// Middleware
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(morgan("dev"));
 
 // Routes
 app.use("/api", routes);
