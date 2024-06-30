@@ -1,23 +1,24 @@
 import { Goal, GoalStatusEnum } from "@/models/Goal";
 import axiosInstance from "./axiosInstance";
-import JsonApiResponse from "@/models/JsonApiResponse";
-import { createQueryKeys } from "@lukemorales/query-key-factory";
-
-export interface BaseFilters {
-  pageNumber?: number;
-  pageSize?: number;
-}
+import JsonApiResponse, {
+  BaseFilters,
+  ServiceDetailFn,
+  ServiceListFn,
+} from "@/models/Services";
+import { ObjectId } from "bson";
 
 export interface GoalsFilters extends BaseFilters {
   status?: GoalStatusEnum;
 }
 
-export const getGoal = async (id: string) => {
+export const getGoal: ServiceDetailFn<Goal, {}, {}> = async (id?: ObjectId) => {
   const { data } = await axiosInstance.get<Goal>(`goals/${id}/`);
   return data;
 };
 
-export const listGoals = async (params: GoalsFilters = {}) => {
+export const listGoals: ServiceListFn<Goal, GoalsFilters, {}> = async (
+  params: GoalsFilters = {}
+) => {
   const { data } = await axiosInstance.get<JsonApiResponse<Goal>>(`goals/`, {
     params,
   });
@@ -25,12 +26,13 @@ export const listGoals = async (params: GoalsFilters = {}) => {
   return data;
 };
 
-export const goalKeys = createQueryKeys("goals", {
-  get: (id: string) => ({ queryFn: () => getGoal(id), queryKey: [id] }),
-  list: (filters: GoalsFilters = {}) => ({
-    queryFn: () => listGoals(filters),
-    queryKey: [{ filters }],
-  }),
-});
+export const goalKeys = {
+  all: ["goals"] as const,
+  lists: () => [...goalKeys.all, "list"] as const,
+  list: (filters: GoalsFilters = {}) =>
+    [...goalKeys.lists(), { filters }] as const,
+  details: () => [...goalKeys.all, "detail"] as const,
+  detail: (id: ObjectId) => [...goalKeys.details(), id] as const,
+};
 
 //TODO add page filter

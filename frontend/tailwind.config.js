@@ -1,12 +1,59 @@
-// tailwind.config.js
+import { Colors } from "./constants/Colors";
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  // NOTE: Update this to include the paths to all of your component files.
-  // important: true,
+  important: true,
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    colors: {
+      inherit: "inherit",
+      "base-0": Colors.base0,
+      "base-5": Colors.base5,
+      "base-25": Colors.base25,
+      "base-50": Colors.base50,
+      "base-100": Colors.base100,
+      "base-content": Colors.baseContent,
+      primary: Colors.primary,
+      "primary-content": Colors.primaryContent,
+      secondary: Colors.secondary,
+      "secondary-content": Colors.secondaryContent,
+      accent: Colors.accent,
+      "accent-content": Colors.accentContent,
+      success: Colors.success,
+      warning: Colors.warning,
+      error: Colors.error,
+      info: Colors.info,
+    },
+    extend: {
+      fontSize: {
+        32: "2rem",
+        28: "1.75rem",
+        24: "1.5rem",
+        20: "1.25rem",
+        18: "1.125rem",
+        16: "1rem",
+        14: "0.875rem",
+        12: "0.75rem",
+        10: "0.625rem",
+      },
+      borderRadius: {
+        20: "1.25rem",
+        18: "1.125rem",
+        16: "1rem",
+        14: "0.875rem",
+        12: "0.75rem",
+        10: "0.625rem",
+        8: "0.5rem",
+        6: "0.375rem",
+        4: "0.25rem",
+      },
+      boxShadow: {
+        DEFAULT: "1px 2px 8px 0px rgba(0, 0, 0, 0.05)",
+        "box-sm": `0.5px 1px 0px 0px ${Colors.base100}`,
+        box: `1px 3px 0px 0px ${Colors.base100}`,
+        "box-md": `4px 5px 0px 0px ${Colors.base100}`,
+      },
+    },
   },
   plugins: [],
 };
