@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 :root {
-  @apply leading-none text-base-content;
+  @apply leading-none text-base-content bg-base-0;
 }

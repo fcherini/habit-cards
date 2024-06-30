@@ -10,8 +10,6 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import "../global.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { AuthProvider } from "@/hooks/useAuth";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.

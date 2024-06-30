@@ -1,62 +1,21 @@
-import { View, Text, Pressable, Platform } from "react-native";
+import { View, Platform } from "react-native";
 import * as WebBrowser from "expo-web-browser";
-import { useAuthRequest } from "expo-auth-session/providers/google";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect, useState } from "react";
 import { Btn } from "@/components/actions/StyledButton";
+import { storeLocalData } from "@/utils/functions/localStorageUtils";
+import { userKeys } from "@/services/userServices";
+import { User, UserRolesEnum } from "@/models/User";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function Login() {
-  const [token, setToken] = useState<string>("");
-  const [userInfo, setUserInfo] = useState(null);
-  const [req, res, promptAsync] = useAuthRequest({
-    androidClientId: process.env.EXPO_PUBLIC_GOOGLE_ANDROID,
-    iosClientId: process.env.EXPO_PUBLIC_GOOGLE_IOS,
-    webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB,
-  });
-
-  useEffect(() => {
-    handleEffect();
-  }, [res, token]);
-
-  async function handleEffect() {
-    const user = await getLocalUser();
-    console.log("user", user);
-    if (!user) {
-      if (res?.type === "success") {
-        // setToken(response.authentication.accessToken);
-        getUserInfo(res.authentication?.accessToken);
-      }
-    } else {
-      setUserInfo(user);
-      console.log("loaded locally");
-    }
-  }
-
-  const getLocalUser = async () => {
-    const data = await AsyncStorage.getItem("@user");
-    if (!data) return null;
-    return JSON.parse(data);
+  const createGuestUser = () => {
+    const newUser: User = {
+      _id: "string",
+      role: UserRolesEnum.GUEST,
+    };
+    storeLocalData(userKeys.me(), newUser);
   };
 
-  const getUserInfo = async (token?: string) => {
-    if (!token) return;
-    try {
-      const response = await fetch(
-        "https://www.googleapis.com/userinfo/v2/me",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      const user = await response.json();
-      await AsyncStorage.setItem("@user", JSON.stringify(user));
-      setUserInfo(user);
-    } catch (error) {
-      // Add your own error handler here
-    }
-  };
   return (
     //TODO apply translation
     //TODO fix responsive grid
@@ -66,7 +25,9 @@ export default function Login() {
           Create Account
         </Btn>
         <View className="h-px bg-base-50 w-[50%]" />
-        <Btn icon="person-circle-outline">Continue as Guest</Btn>
+        <Btn onPress={() => createGuestUser()} icon="person-circle-outline">
+          Continue as Guest
+        </Btn>
         <Btn icon="logo-google">Login with Google</Btn>
         <Btn icon="logo-facebook">Login with Facebook</Btn>
         {Platform.select({

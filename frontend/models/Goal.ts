@@ -1,5 +1,3 @@
-import { ObjectId } from "bson";
-
 export enum GoalStatusEnum {
   ACTIVE = "active",
   ARCHIVED = "archived",
@@ -17,10 +15,11 @@ export type GoalGroup = {
 };
 
 export type Goal = {
-  _id: ObjectId;
+  _id: string;
   title: string;
-  userId?: ObjectId;
+  userId?: string;
   countTitle: string;
+  goal: number;
   increment: number;
   period: GoalPeriodEnum;
   hours: number;

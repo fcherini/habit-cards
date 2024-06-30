@@ -30,7 +30,7 @@ const useFetchDetail = <T, Filters = {}, Params = {}>(
       const onlineRequest = async () => {
         const apiData = await service();
         const partialData = mapFields ? mapFields(apiData) : apiData;
-        await storeLocalData(queryKey, partialData); // Store only chosen fields
+        await storeLocalData(queryKey, partialData);
         return apiData;
       };
       return handleRequests({

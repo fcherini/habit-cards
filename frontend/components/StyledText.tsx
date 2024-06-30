@@ -19,7 +19,7 @@ export function Txt({ type = "default", className, ...rest }: ThemedTextProps) {
 const textTypes: Record<ThemedTextTypes, string> = {
   default: "text-16 leading-none text-inherit",
   small: "text-12 leading-none",
-  title: "font-bold text-24 text-primary leading-none",
-  subtitle: "font-extrabold text-20 leading-none",
+  title: "font-bold text-20 leading-none",
+  subtitle: "font-extrabold text-18 leading-none",
   link: "text-secondary underline leading-none",
 };

@@ -5,13 +5,12 @@ import JsonApiResponse, {
   ServiceDetailFn,
   ServiceListFn,
 } from "@/models/Services";
-import { ObjectId } from "bson";
 
 export interface GoalsFilters extends BaseFilters {
   status?: GoalStatusEnum;
 }
 
-export const getGoal: ServiceDetailFn<Goal, {}, {}> = async (id?: ObjectId) => {
+export const getGoal: ServiceDetailFn<Goal, {}, {}> = async (id?: string) => {
   const { data } = await axiosInstance.get<Goal>(`goals/${id}/`);
   return data;
 };
@@ -32,7 +31,7 @@ export const goalKeys = {
   list: (filters: GoalsFilters = {}) =>
     [...goalKeys.lists(), { filters }] as const,
   details: () => [...goalKeys.all, "detail"] as const,
-  detail: (id: ObjectId) => [...goalKeys.details(), id] as const,
+  detail: (id: string) => [...goalKeys.details(), id] as const,
 };
 
 //TODO add page filter

@@ -1,5 +1,3 @@
-import { ObjectId } from "bson";
-
 export default interface JsonApiResponse<T> {
   data: T[];
   meta: Meta;
@@ -22,7 +20,7 @@ export type ServiceListFn<T, Filters = {}, Params = {}> = (
 ) => Promise<JsonApiResponse<T>>;
 
 export type ServiceDetailFn<T, Filters = {}, Params = {}> = (
-  id?: ObjectId,
+  id?: string,
   filters?: Filters,
   params?: Params
 ) => Promise<T>;

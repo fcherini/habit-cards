@@ -10,22 +10,19 @@ import { Goal } from "@/models/Goal";
 import { TextInput } from "react-native-gesture-handler";
 import { Fragment, useState } from "react";
 import { Colors } from "@/constants/Colors";
-import useFetchData from "@/hooks/useFetchData";
-import { UserRolesEnum } from "@/models/User";
+import { goalGenerator } from "@/utils/functions/generators";
 
 export default function HomeScreen() {
-  // const { data: goalsList } = useQuery({
-  //   ...goalKeys.list(),
-  //   staleTime: 1000000,
-  // });
+  // const { data: goalsList } = useFetchData(
+  //   UserRolesEnum.GUEST,
+  //   goalKey,
+  //   listGoals //TODO: how to use queryfn from factory
+  // );
 
-  const { queryKey: goalKey } = goalKeys.list();
-
-  const { data: goalsList } = useFetchData(
-    UserRolesEnum.GUEST,
-    goalKey,
-    listGoals //TODO: how to use queryfn from factory
-  );
+  const goalsList: Goal[] = [
+    goalGenerator(),
+    goalGenerator({ _id: "2", title: "drawing" }),
+  ];
 
   const [isVisible, setIsVisible] = useState(false);
   let today = DateTime.local();
@@ -38,17 +35,17 @@ export default function HomeScreen() {
   //TODO fix responsive grid
   //TODO apply backgrounds globally
   return (
-    <View className="flex h-screen flex-col max-w-screen-md justify-center relative">
-      <View className="flex flex-row items-center gap-2 text-base">
+    <View className="flex h-screen flex-col w-full justify-center items-center self-center relative md:max-w-2xl">
+      <View className="w-full flex flex-row items-center gap-2 text-base">
         {interval.map((day, i) => (
           <DateCard key={i} date={day} />
         ))}
       </View>
       <Txt>How much energy did you dedicate today to your goals?</Txt>
 
-      <View className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4">
+      <View className="flex items-center justify-center flex-row flex-wrap gap-2 w-full">
         {goalsList?.map((goal) => (
-          <GoalCard key={goal._id.toString()} goal={goal} />
+          <GoalCard key={goal._id} goal={goal} />
         ))}
       </View>
       <Pressable

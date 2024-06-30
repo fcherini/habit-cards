@@ -1,7 +1,6 @@
 import { User } from "@/models/User";
 import { getMe, userKeys } from "@/services/userServices";
 import { createContext, ReactNode, useContext } from "react";
-import { getLocalData } from "@/utils/functions/localStorageUtils";
 import useFetchDetail from "./useFetchDetail";
 
 export interface AuthContextType {

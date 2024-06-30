@@ -1,5 +1,3 @@
-import { ObjectId } from "bson";
-
 export enum UserRolesEnum {
   GUEST = "guest",
   FREE = "free",
@@ -8,7 +6,7 @@ export enum UserRolesEnum {
 }
 
 export interface User {
-  _id: ObjectId;
+  _id: string;
   email?: string;
   firstName?: string;
   lastName?: string;
