@@ -1,12 +1,12 @@
 export enum GoalStatusEnum {
-  ACTIVE = "active",
-  ARCHIVED = "archived",
+  ACTIVE = "ACTIVE",
+  ARCHIVED = "ARCHIVED",
 }
 export enum GoalPeriodEnum {
-  DAILY = "daily",
-  WEEKLY = "weekly",
-  BIWEEKLY = "biweekly",
-  MONTHLY = "monthly",
+  DAILY = "DAILY",
+  WEEKLY = "WEEKLY",
+  BIWEEKLY = "BIWEEKLY",
+  MONTHLY = "MONTHLY",
 }
 
 export type GoalGroup = {

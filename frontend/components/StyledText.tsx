@@ -1,7 +1,13 @@
 import { Text, type TextProps } from "react-native";
 import { twMerge } from "tailwind-merge";
 
-type ThemedTextTypes = "default" | "title" | "subtitle" | "link" | "small";
+type ThemedTextTypes =
+  | "default"
+  | "title"
+  | "subtitle"
+  | "link"
+  | "small"
+  | "detail";
 
 export type ThemedTextProps = TextProps & {
   type?: ThemedTextTypes;
@@ -20,6 +26,7 @@ const textTypes: Record<ThemedTextTypes, string> = {
   default: "text-16 leading-none text-inherit",
   small: "text-12 leading-none",
   title: "font-bold text-20 leading-none",
-  subtitle: "font-extrabold text-18 leading-none",
+  detail: "text-14 font-semibold",
+  subtitle: "font-bold text-16 leading-none",
   link: "text-secondary underline leading-none",
 };

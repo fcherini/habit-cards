@@ -1,9 +1,9 @@
 import { Goal } from "@/models/Goal";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Card } from "../actions/StyledCard";
 import { Pressable, View } from "react-native";
-import { Txt } from "./StyledText";
-import { Card } from "./actions/StyledCard";
-import { useQuery } from "@tanstack/react-query";
+import { Txt } from "../StyledText";
+import { twMerge } from "tailwind-merge";
+import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
 export const GoalCard = ({ goal }: { goal: Goal }) => {
@@ -16,7 +16,9 @@ export const GoalCard = ({ goal }: { goal: Goal }) => {
     <Card
       onPress={() => {}} //TODO open goal stats
       onLongPress={() => {}} //TODO open quick menu like edit and delete
-      className="w-full max-w-80 px-4 py-3 relative overflow-hidden pb-8"
+      className={`w-full max-w-80 px-4 py-3 relative overflow-hidden pb-8 ${
+        goal.group ? "pb-4" : "pb-8"
+      }`}
       type={goal.group ? "blank" : "default"}
     >
       <View className="flex w-full flex-row justify-between">
@@ -24,15 +26,7 @@ export const GoalCard = ({ goal }: { goal: Goal }) => {
           <Txt type="title" className="uppercase">
             {goal.title}
           </Txt>
-          <View className="flex flex-row gap-1.5">
-            <Txt type="small">Total</Txt>
-            <View className="flex flex-row">
-              <Txt type="small" className="font-bold">
-                {Math.round(goalCurrent * goal.energy)}
-              </Txt>
-              <Ionicons name="flash" size={12} />
-            </View>
-          </View>
+          <TotalEnergy count={Math.round(goalCurrent * goal.energy)} />
         </View>
         <View className="flex items-center">
           <Txt className="font-semibold">{goal.countTitle}</Txt>
@@ -43,16 +37,48 @@ export const GoalCard = ({ goal }: { goal: Goal }) => {
           />
         </View>
       </View>
-      <View className="absolute bottom-0 bg-base-25 border border-base-100 w-[101%] h-6">
-        <Txt className="absolute bottom-1 italic text-base-5 text-[length:0.75rem] z-10 pl-4">
+      <View
+        className={`absolute bottom-0 bg-base-25 border border-b-0 border-base-100 w-[101%] ${
+          goal.group ? "h-3" : "h-6"
+        }`}
+      >
+        <Txt
+          className={`absolute italic text-base-5 z-10 pl-4 ${
+            goal.group
+              ? "text-[length:0.625rem] bottom-0"
+              : "text-[length:0.75rem] bottom-1"
+          }`}
+        >
           {currentHours}/{goalHours} hours
         </Txt>
         <View
-          className="transition-all bg-base-50 h-full border-r rounded-r-6 border-base-100"
+          className={`transition-all bg-base-50 h-full border-r border-base-100 ${
+            goalPercentage < 100 ? "border-r rounded-r-6" : "border-none"
+          }`}
           style={{ width: `${goalPercentage}%` }}
         ></View>
       </View>
     </Card>
+  );
+};
+
+export const TotalEnergy = ({
+  count,
+  className,
+}: {
+  count: number;
+  className?: string;
+}) => {
+  return (
+    <View className={twMerge("flex flex-row gap-1.5", className)}>
+      <Txt type="small">Total</Txt>
+      <View className="flex flex-row">
+        <Txt type="small" className="font-bold">
+          {count}
+        </Txt>
+        <Ionicons name="flash" size={12} />
+      </View>
+    </View>
   );
 };
 

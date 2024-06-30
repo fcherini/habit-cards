@@ -1,4 +1,4 @@
-import { View, Platform } from "react-native";
+import { Platform, View } from "react-native";
 import * as WebBrowser from "expo-web-browser";
 import { Btn } from "@/components/actions/StyledButton";
 import { storeLocalData } from "@/utils/functions/localStorageUtils";

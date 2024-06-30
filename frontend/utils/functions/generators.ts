@@ -1,4 +1,4 @@
-import { Goal, GoalPeriodEnum, GoalStatusEnum } from "@/models/Goal";
+import { Goal, GoalGroup, GoalPeriodEnum, GoalStatusEnum } from "@/models/Goal";
 
 export function goalGenerator(goal?: Partial<Goal>): Goal {
   return {
@@ -14,5 +14,12 @@ export function goalGenerator(goal?: Partial<Goal>): Goal {
     updatedAt: new Date(),
     createdAt: new Date(),
     ...goal,
+  };
+}
+export function goalGroupGenerator(goalGroup?: Partial<GoalGroup>): GoalGroup {
+  return {
+    _id: "1",
+    title: "writing",
+    ...goalGroup,
   };
 }

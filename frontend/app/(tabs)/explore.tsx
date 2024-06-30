@@ -1,5 +1,5 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet, Image, Platform } from "react-native";
+import { StyleSheet, Image } from "react-native";
 
 import { Collapsible } from "@/components/Collapsible";
 import { ExternalLink } from "@/components/ExternalLink";
@@ -83,14 +83,14 @@ export default function TabTwoScreen() {
           powerful <Txt type="subtitle">react-native-reanimated</Txt> library to
           create a waving hand animation.
         </Txt>
-        {Platform.select({
+        {/* {Platform.select({
           web: (
             <Txt>
               The <Txt type="subtitle">components/ParallaxScrollView.tsx</Txt>{" "}
               component provides a parallax effect for the header image.
             </Txt>
           ),
-        })}
+        })} */}
       </Collapsible>
     </ParallaxScrollView>
   );
